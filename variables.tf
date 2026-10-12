@@ -1,17 +1,22 @@
 variable "aws_region" {
-  description = "AWS region where the infrastructure will be provisioned."
   type        = string
+  description = "AWS region where resources are created"
   default     = "ap-south-1"
 }
 
-variable "environment" {
-  description = "Deployment environment for the infrastructure."
+variable "project_name" {
   type        = string
-  default     = "dev"
+  description = "Project name used as a prefix in resource names"
+  default     = "ecommerce"
 }
 
-variable "project_name" {
-  description = "Name of the project."
+variable "environment" {
   type        = string
-  default     = "ecommerce"
+  description = "Deployment environment"
+  default     = "dev"
+
+  validation {
+    condition     = contains(["dev", "qa", "prod"], var.environment)
+    error_message = "Environment must be one of: dev, qa, prod."
+  }
 }
