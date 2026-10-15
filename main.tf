@@ -110,3 +110,25 @@ resource "aws_instance" "web" {
     Purpose     = "ecommerce-web"
   }
 }
+
+# Phase 5: dynamic storage buckets
+resource "aws_s3_bucket" "storage" {
+  for_each = local.storage_requirements
+
+  bucket = "${var.project_name}-${var.environment}-${each.value}-ritisha-02"
+
+  tags = {
+    Environment = var.environment
+    Purpose     = each.key
+  }
+}
+
+resource "aws_s3_bucket_versioning" "storage" {
+  for_each = aws_s3_bucket.storage
+
+  bucket = each.value.id
+
+  versioning_configuration {
+    status = local.versioning_enabled ? "Enabled" : "Disabled"
+  }
+}

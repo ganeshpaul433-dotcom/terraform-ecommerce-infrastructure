@@ -1,4 +1,12 @@
 locals {
-  bucket_name      = "${var.project_name}-${var.environment}-product-assets-ritisha-02"
-  siri_bucket_name = "123-s3-bucket-siri"
+  bucket_name = "${var.project_name}-${var.environment}-product-assets-ritisha-02"
+
+  # Phase 5: storage requirements as data
+  storage_requirements = {
+    logs    = "application-logs"
+    backups = "backups"
+  }
+
+  # Phase 5: conditional, versioning only in prod
+  versioning_enabled = var.environment == "prod"
 }
