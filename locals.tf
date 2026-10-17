@@ -9,4 +9,7 @@ locals {
 
   # Phase 5: conditional, versioning only in prod
   versioning_enabled = var.environment == "prod"
+
+  # Phase 6: region read from the AWS provider via a data source
+  current_region = data.aws_region.current.region
 }

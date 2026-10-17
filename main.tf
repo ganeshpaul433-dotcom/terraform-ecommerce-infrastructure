@@ -132,3 +132,5 @@ resource "aws_s3_bucket_versioning" "storage" {
     status = local.versioning_enabled ? "Enabled" : "Disabled"
   }
 }
+
+data "aws_region" "current" {}

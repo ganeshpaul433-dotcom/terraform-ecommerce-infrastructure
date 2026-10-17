@@ -29,3 +29,8 @@ output "storage_bucket_arns" {
   description = "ARNs of the dynamic storage buckets, keyed by requirement"
   value       = { for key, bucket in aws_s3_bucket.storage : key => bucket.arn }
 }
+
+output "current_region" {
+  description = "AWS region detected by the Terraform AWS provider"
+  value       = data.aws_region.current.region
+}
